@@ -1,0 +1,34 @@
+// ()parenthese parenth {}braces []brackets <>carots
+
+{
+	"notes":[
+		"JSON files cannot have comments. So write any notes in this array.",
+		"A JSON document always starts with either an array [], or an object {}",
+		"Commas go between values in objects or arrays, not necessarily at the end of lines.",
+		"Object property names must be inside quotation marks.",
+		"String quotation marks must be double quotes."
+	],
+	"users":[
+		{
+			"name":"Hamilton",
+			"type":"Teacher",
+			"classes":[601,608,617,820]
+		},
+		{
+			"name":"Jiajia",
+			"type":"Student",
+			"classes":[618,635,700]
+		},
+		{
+			"name":"Xiyu",
+			"type":"Student",
+			"classes":[618,635,615]
+		},
+		{
+			"name":"Qianwen",
+			"type":"Student",
+			"classes":[618,635,700]
+		}
+	]
+}
+

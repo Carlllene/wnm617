@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>My Kittens</title>
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+
+	<link rel="stylesheet" href="lib/css/jquery.mobile.structure-1.4.5.min.css">
+	<link rel="stylesheet" href="css/app.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amaranth" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+
+	<script src="lib/js/jquery-2.2.4.min.js"></script>
+	<script src="lib/js/apptools.js"></script>
+	<script src="js/app.js"></script>
+
+	<script src="lib/js/jquery.mobile-1.4.5.min.js"></script>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJzGbftdb0LXv_52Til7b8OuNwLBKcIJw"
+    async defer></script>
+
+</head>
+<body>
+<!-- login page -->
+    <section data-role="page" id="login-page">
+        <div data-role="main">
+            <form id="login-form" class="centered-child" data-role="none">
+                <img src="img/logo.png" alt="">
+                <div class="form-control">
+                    <b>Track</b>
+                    <b>Your</b>
+                    <b>Kittens</b>
+                </div>
+                <div class="form-control">
+                    <label for="login-username"></label>
+                    <input type="text" id="login-username" placeholder="User Name" data-role="none">
+                </div>
+                <div class="form-control">
+                    <label for="login-password"></label>
+                    <input type="password" id="login-password" placeholder="Pass Word" data-role="none">
+                </div>
+                <div class="login-alert"></div>
+                <div class="form-control">
+                    <label></label>
+                    <input type="submit" value="Log in" data-role="none">
+                </div>
+            </form>
+        </div>
+    </section>
+
+<!-- map page -->
+	<section data-role="page" id="map-page">
+		<header data-role="header">
+            <div class="ui-title" style="color: #5a00ff; font-family: 'Amaranth', sans-serif;">Where are they today?</div>
+            <div class="btn-row">
+                    <a href="#" data-activate="#add-cat-list-modal" class="plus-btn"><img src="img/buttons_plus.svg" alt="" style="width: 70px;"></a>
+            </div>
+		</header>
+		<footer data-role="footer" data-template="#footer-template"></footer>
+
+		<div data-role="main">
+			<div class="map-area">
+				<div class="map"></div>
+			</div>
+		</div>
+
+
+		<div class="modal" id="add-cat-list-modal">
+			<div class="btn-row">
+				<ul>
+					<li><a href="#" class="btn" data-deactivate="#add-cat-list-modal"><img src="img/buttons_cancel.svg" alt=""></a></li>
+				</ul>
+			</div>	
+			<form class="modal-content" id="add-cat-list-form" data-role="none">
+				<div class="modal-body">
+					<div class="form-control">
+                        <!-- https://codepen.io/bronkula/pen/bvrgxQ
+                            Create the look of a generic thumbnail -->
+					    <label for="add-cat-list-imagepicker">Image</label>
+					    <br>
+					    <label class="imagepicker imagepicker-replace thumbnail">
+					      <input type='file' id="add-cat-list-imagepicker" multiple data-role="none">
+					    </label>
+					</div>
+					<div class="form-control">
+						<label for="add-cat-list-name">Name</label>
+						<input type="text" placeholder="Name" id="add-cat-list-name" data-role="none" class="form-input">
+					</div>
+					<div class="form-control">
+						<label for="add-cat-list-gender">Gender</label>
+						<div class="select-parent">
+							<select data-role="none" class="form-select" id="add-cat-list-gender">
+								<option value="unknown">Unknown</option>
+								<option value="tom">Tom</option>
+								<option value="queen">Queen</option>
+							</select>
+						</div>
+						<!-- <input type="text" id="edit-cat-type" data-role="none" class="form-input"> -->
+					</div>
+					<div class="form-control">
+						<label for="add-cat-list-age">Age</label>
+						<div class="select-parent">
+							<select data-role="none" class="form-select" id="add-cat-list-age">
+								<option value="unknown">Unknown</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+						</div>
+						<!-- <input type="text" id="edit-cat-type" data-role="none" class="form-input"> -->
+					</div>
+					<div class="form-control">
+						<label for="add-cat-list-breed">Breed</label>
+						<input type="text" placeholder="Breed" id="add-cat-list-breed" data-role="none" class="form-input">
+					</div>
+					<input type="submit" class="form-button" value="save" data-role="none">
+				</div>
+			</form>
+		</div>
+	</section>
+
+<!-- list page -->	
+	<section data-role="page" id="list-page">
+<!-- 		<header data-role="header">
+			<h1>My Kittens</h1>
+	        <div class="btn-row">
+				<ul>
+					<li></li>
+					<li><a href="#" data-activate="#add-cat-list-modal">+</a></li>
+				</ul>
+			</div>
+		</header> -->
+		<footer data-role="footer" data-template="#footer-template" style="x  background-image: linear-gradient(to bottom, var(--white), rgba(0,0,0,0));"></footer>
+		<div data-role="main">
+			<div class="flex-parent flex-vertical fill-parent">
+				<div class="flex-none">
+					<div class="search-box">
+						<input type="search" class="top-search" id="list-search" data-role="none" placeholder="Search your Kitten">
+					</div>
+				</div>
+				<div class="flex-none list-filter">
+					<span class="js-list-filter" data-filter="breed" data-value="">All</span>
+					<span class="js-list-filter" data-filter="breed" data-value="Persian">Persian</span>
+					<span class="js-list-filter" data-filter="breed" data-value="siamese">Siamese</span>
+					<span class="js-list-filter" data-filter="breed" data-value="shorthair">Shorthair</span>
+					<span class="js-list-filter" data-filter="gender" data-value="queen">Queen</span>
+					
+
+				</div>
+				<div class="flex-child scrolley">
+					<div class="catlist"></div>
+				</div>
+
+			</div>
+		</div>
+
+
+
+
+<!-- 		<div class="modal" id="add-cat-list-modal">
+			<div class="modal-back" data-deactivate="#add-cat-list-modal"></div>
+			<form class="modal-content" id="add-cat-list-form" data-role="none">
+				<div class="modal-head">
+					<div class="flex-parent flex-center">
+						<div class="flex-none">
+							<a href="#" class="btn" data-deactivate="#add-cat-list-modal">cancel</a>
+						</div>
+						<div class="flex-child" style="text-align:center">
+							Add Location
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">
+					<div>
+					    <label class="imagepicker imagepicker-replace thumbnail">
+					      <input type='file' id="add-cat-list-imagepicker" multiple data-role="none">
+					    </label>
+					</div>
+					<div class="form-control">
+						<label for="add-cat-list-name">Name</label>
+						<input type="text" id="add-cat-list-name" data-role="none" class="form-input">
+					</div>
+					<div class="form-control">
+						<label for="add-cat-list-type">Type</label>
+						<div class="select-parent">
+							<select data-role="none" class="form-select" id="add-cat-list-type">
+								<option value="cat">Cat</option>
+								<option value="dog">Dog</option>
+								<option value="horse">Horse</option>
+							</select>
+						</div>
+
+					</div>
+					<div class="form-control">
+						<label for="add-cat-list-breed">Breed</label>
+						<input type="text" id="add-cat-list-breed" data-role="none" class="form-input">
+					</div>
+				</div>
+				<div class="modal-foot">
+					<div class="flex-parent">
+						<div class="flex-child"></div>
+						<div class="flex-none">
+							<input type="submit" class="form-button" value="commit" data-role="none">
+						</div>
+					</div>
+				</div>
+			</form>
+		</div> -->
+	</section>
+
+	
+	<section data-role="page" id="cat-profile-page">
+
+		<div data-role="main" id="wrapper">
+		<header data-role="header">
+			<!-- <h1>Who I am</h1> -->
+			<div class="btn-row">
+				<ul>
+					<li><a href="#back" data-rel="back"><img src="img/buttons_back.svg"></a></li>
+					<li></li>
+					<li><div class="cat-delete" data-id="<%= id %>"><img src="img/buttons_delete.svg"></div></li>
+					<li><a href="#" data-activate="#edit-cat-modal" class="js-edit-cat"><img src="img/buttons_edit.svg"></a></li>
+				</ul>
+			</div>	
+		</header>
+
+		<div data-role="main">
+ 			<div class="cat-top">
+				<div class="cat-info"></div>
+				<div class="cat-locations"></div>
+			</div>
+			<div class="cat-map">
+				<div class="map-area">
+					<div class="map"></div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="modal" style="background-color: var(--dark-grey)" id="edit-cat-modal">
+			<div class="btn-row">
+				<ul>
+					<li><a href="#" class="btn" data-deactivate="#edit-cat-modal"><img src="img/buttons_cancel.svg" alt=""></a></li>
+				</ul>
+			</div>	
+
+			<!-- <div class="modal-back" data-deactivate="#edit-cat-modal"></div> -->
+
+			<form class="modal-content" id="edit-cat-form" data-role="none">
+<!-- 				<div class="modal-head">
+					<div class="flex-parent flex-center">
+
+						<div class="flex-child" style="text-align:center">
+							Add Location
+						</div>
+					</div>
+				</div> -->
+<!--                     <div class="form-group">
+                        <input type="text" placeholder="Model" name="model" id="add-car-list-model">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Make" name="make" id="add-car-list-make">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" placeholder="Class" name="tier" id="add-car-list-tier">
+                    </div>
+                    <div class="form-group">
+                        <label id="add-car-list-img" class="imagepicker imagepicker-replace thumbnail">
+                            <input type="file" data-role="none">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn" value="submit" data-role="none">
+                    </div> -->
+
+
+				<div class="modal-body">
+					<div class="form-control">
+                        <!-- https://codepen.io/bronkula/pen/bvrgxQ
+                            Create the look of a generic thumbnail -->
+					    <label for="edit-cat-imagepicker">Image</label>
+					    <br>
+					    <label class="imagepicker imagepicker-replace thumbnail">
+					      <input type='file' id="edit-cat-imagepicker" multiple data-role="none">
+					    </label>
+					</div>
+					<div class="form-control">
+						<label for="edit-cat-name">Name</label>
+						<input type="text" placeholder="Name" id="edit-cat-name" data-role="none" class="form-input">
+					</div>
+					<div class="form-control">
+						<label for="edit-cat-list-age">Age</label>
+						<div class="select-parent">
+							<select data-role="none" class="form-select" id="add-cat-list-age">
+								<option value="unknown">Unknown</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+						</div>
+						<!-- <input type="text" id="edit-cat-type" data-role="none" class="form-input"> -->
+					</div>
+					<div class="form-control">
+						<label for="edit-cat-gender">Gender</label>
+						<div class="select-parent">
+							<select data-role="none" class="form-select" id="edit-cat-gender">
+								<option value="unknown">Unknown</option>
+								<option value="female">Female</option>
+								<option value="male">Male</option>
+							</select>
+						</div>
+						<!-- <input type="text" id="edit-cat-type" data-role="none" class="form-input"> -->
+					</div>
+					<div class="form-control">
+						<label for="edit-cat-breed">Breed</label>
+						<input type="text" placeholder="Breed" id="edit-cat-breed" data-role="none" class="form-input">
+					</div>
+					<input type="submit" class="form-button" value="save" data-role="none">
+				</div>
+			</form>
+		</div>
+
+		<div class="modal" id="add-location-modal">
+			<div class="modal-back" data-deactivate="#add-location-modal"></div>
+			<form class="modal-content" id="add-location-form" data-role="none">
+				<div class="modal-head">
+					<div class="flex-parent flex-center">
+						<div class="flex-none">
+							<a href="#" class="btn" data-deactivate="#add-location-modal"><img src="img/buttons_cancel.svg"></a>
+						</div>
+						<div class="flex-child" style="text-align:center; font-weight: 800;">
+							Have seen it...
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">
+
+					<input type="hidden" id="add-location-lat">
+					<input type="hidden" id="add-location-lng">
+					
+<!-- 					<div class="form-control">
+						<label for="add-location-description">Description</label>
+						<textarea id="add-location-description" data-role="none" class="form-textarea"></textarea>
+					</div> -->
+					<input type="submit" class="form-button" value="add" data-role="none">
+				</div>
+					
+							
+			</form>
+		</div>
+
+	</section>
+
+<!-- profile page -->	
+	<section data-role="page" id="profile-page">
+
+		<footer data-role="footer" data-template="#footer-template"></footer>
+		<div data-role="main">
+			<a href="#" class="ui-link js-logout">Log Out</a>
+		</div>
+	</section>
+
+
+
+
+<!-- template -->
+
+<script type="text/template" id="profile-template">
+<div class="profile-panel">
+	<img class="profile-image" src="<%= img %>" alt="">
+	<div class="profile-name profile-text"><h5><%= name %></h5></div>
+	<div class="profile-type profile-text"><h6><%= email %></h6></div>
+	<div class="profile-type profile-text"><h6>Tracking<br><%= cats.length %><br>Kittens</h6></div>
+	<a href="#" class="js-logout">Log Out</a>
+</div>
+</script>
+
+<script type="text/template" id="cat-profile-template">
+	<div class="item-container">
+		<img class="cat-image" src="<%= img %>" alt="">
+			<div class="cat-title"><%= name %></div>
+			<div class="cat-profile-description"><%= gender %></div>
+			<div class="cat-profile-description"><%= age %> year old</div>
+			<div class="cat-profile-description"><%= breed %></div>
+	</div>
+</script>
+
+<script type="text/template" id="catlist-template">
+<div class="catlist-item cat-jump" data-id="<%= id %>" >
+<div class="flex-parent flex-center list-box">
+	<div class="flex-none catlist-icon">
+		<img src="<%= img %>" alt="">
+	</div>
+	<div class="flex-child">
+		<div class="catlist-title"><%= name %></div>
+		<div class="catlist-description"><%= breed %></div>
+	</div>
+
+</div>
+</div>
+
+</script>
+
+
+<script type="text/template" id="footer-template">
+<div class="btn-row">
+	<!-- ul>li*3>a[href=#]>{Link} -->
+	<ul>
+
+
+		<li class="flex-child btn-box">
+			<a href="#list-page" class="nav-list" data-activate=".nav-list" data-deactivate=".nav-map,.nav-profile" data-transition="slide" data-direction="reverse">
+				<div class="btn-icon">
+					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						 viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve">
+
+					<title>Asset 3_1</title>
+					<path class="st0" d="M46.4,44.5c-1.1,5.3-6,8.6-10.9,7.5c-1.3-0.3-2.4-0.9-3.5-1.7c-4.1,3.2-9.8,2.3-12.8-2
+						c-0.8-1.1-1.3-2.4-1.6-3.7c-0.2-1.1,0.5-2.2,1.6-2.4c1-0.2,2,0.5,2.3,1.6c0.6,3,3.4,4.9,6.2,4.3c1.1-0.3,2.1-0.9,2.8-1.8
+						c0.1-0.1,0.1-0.1,0.2-0.2c-0.1-0.1-0.2-0.2-0.3-0.2L26,41c-1.4-1.5-0.4-4.1,1.6-4.1h8.7c2,0,3,2.5,1.6,4.1l-4.4,4.6
+						c-0.1,0.1-0.2,0.2-0.3,0.3c0.1,0.1,0.1,0.1,0.2,0.2c1.9,2.3,5.2,2.6,7.4,0.6c0.8-0.8,1.4-1.8,1.7-3c0.3-1.1,1.3-1.8,2.4-1.5
+						C45.9,42.4,46.6,43.4,46.4,44.5L46.4,44.5z"/>
+					<rect class="st1" width="6.4" height="6.4"/>
+					<path class="st0" d="M64,2.1c0-1.9-2.2-2.8-3.5-1.5L53.1,8c-5.6-5-13-8-21.1-8S16.5,3,10.9,8L3.5,0.7C2.2-0.6,0,0.3,0,2.1V32
+						c0,0,0,0,0,0c0,17.7,14.3,32,32,32s32-14.3,32-32c0,0,0,0,0,0V2.1z M32,57.6C17.9,57.6,6.4,46.2,6.4,32c0,0,0,0,0,0c0-3.5,0-19,0-19
+						l4.5,4.6c1.3-1.9,2.8-3.6,4.5-5c2.2-1.9,4.8-3.4,7.6-4.5v7.4c0,1.1,0.9,2.1,2.1,2.1h0.5c1.1,0,2.1-0.9,2.1-2.1V6.8
+						c0.7-0.1,1.3-0.2,2-0.3v9c0,1.1,0.9,2.1,2.1,2.1h0.5c1.1,0,2.1-0.9,2.1-2.1v-9c0.7,0.1,1.4,0.2,2,0.3v8.7c0,1.1,0.9,2.1,2.1,2.1h0.5
+						c1.1,0,2.1-0.9,2.1-2.1V8.1c2.8,1.1,5.3,2.6,7.6,4.5c1.7,1.5,3.2,3.2,4.5,5l4.5-4.6c0,0,0,15.6,0,19c0,0,0,0,0,0
+						C57.6,46.2,46.1,57.6,32,57.6z"/>
+					<circle class="st0" cx="22.4" cy="35.2" r="4"/>
+					<circle class="st0" cx="41.6" cy="35.2" r="4"/>
+					</svg>
+				</div>
+				<div class="btn-title">Kittens</div>
+			</a>
+		</li>
+
+		<li class="flex-child btn-box">
+			<a href="#map-page" class="nav-map" data-activate=".nav-map" data-deactivate=".nav-list,.nav-profile">
+				<div class="btn-icon">
+					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						 viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve">
+					<path d="M32,0C14.3,0,0,14.3,0,32s14.3,32,32,32c17.7,0,32-14.3,32-32S49.7,0,32,0z M54.1,19.2h-9.4c-1-4-2.5-7.8-4.4-11.4
+						C46.2,9.8,51.1,13.9,54.1,19.2z M32,6.5c2.7,3.8,4.7,8.1,6.1,12.7H25.9C27.3,14.6,29.3,10.4,32,6.5z M7.2,38.4
+						c-0.5-2-0.8-4.2-0.8-6.4s0.3-4.4,0.8-6.4H18c-0.3,2.1-0.4,4.2-0.4,6.4s0.2,4.3,0.4,6.4H7.2z M9.9,44.8h9.4c1,4,2.5,7.8,4.4,11.4
+						C17.8,54.2,12.9,50.1,9.9,44.8z M19.3,19.2H9.9c3.1-5.3,8-9.4,13.9-11.4C21.8,11.4,20.3,15.2,19.3,19.2z M32,57.5
+						c-2.7-3.8-4.7-8.1-6.1-12.7h12.2C36.7,49.4,34.7,53.6,32,57.5z M39.5,38.4h-15C24.2,36.3,24,34.2,24,32s0.2-4.3,0.5-6.4h15
+						c0.3,2.1,0.5,4.2,0.5,6.4S39.8,36.3,39.5,38.4z M40.3,56.2c1.9-3.6,3.4-7.4,4.4-11.4h9.4C51.1,50.1,46.2,54.2,40.3,56.2z M46,38.4
+						c0.3-2.1,0.4-4.2,0.4-6.4s-0.2-4.3-0.4-6.4h10.8c0.5,2,0.8,4.2,0.8,6.4s-0.3,4.4-0.8,6.4H46z"/>
+					</svg>
+				</div>
+				<div class="btn-title">Map</div>
+			</a>
+		</li>
+
+
+		<li class="flex-child btn-box">
+			<a href="#profile-page" class="nav-profile" data-activate=".nav-profile" data-deactivate=".nav-list,.nav-map" data-transition="slide">
+				<div class="btn-icon">
+					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						 viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve">
+					<path class="st0" d="M22.4,31.2c-2.2,0-4,1.8-4,4s1.8,4,4,4s4-1.8,4-4S24.6,31.2,22.4,31.2z M41.6,31.2c-2.2,0-4,1.8-4,4s1.8,4,4,4
+						s4-1.8,4-4S43.8,31.2,41.6,31.2z M32,0C14.3,0,0,14.3,0,32s14.3,32,32,32s32-14.3,32-32S49.7,0,32,0z M32,57.6
+						C17.9,57.6,6.4,46.1,6.4,32c0-0.9,0.1-1.9,0.2-2.8c7.5-3.4,13.5-9.5,16.7-17.2c5.8,8.2,15.3,13.5,26.1,13.5c2.5,0,4.9-0.3,7.2-0.8
+						c0.7,2.3,1,4.7,1,7.2C57.6,46.1,46.1,57.6,32,57.6z"/>
+					</svg>
+				</div>
+				<div class="btn-title">Profile</div>
+			</a>
+		</li>
+	</ul>
+</div>
+</script>
+
+
+
+<script type="text/template" id="map-cat-template">
+<div class="cat-jump" data-id="<%= id %>">
+	<div class="flex-parent cat-infoWindow">
+	<div class="flex-child">
+		<img class="cat-image" src="<%= img %>" alt="">
+	</div>
+	<div class="flex-none cat-info">
+		<div class="cat-name"><%= name %></div>
+		<div class="cat-gender"><%= gender %></div>
+		<div class="cat-breed"><%= breed %></div>	
+	</div>
+</div>
+</div>
+</script>
+
+
+
+</body>
+</html>
